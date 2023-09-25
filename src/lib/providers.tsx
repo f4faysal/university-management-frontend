@@ -7,7 +7,7 @@ import StyledComponentsRegistry from "./AntdRegistry";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      {children}
+      <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
     </Provider>
   );
 };
