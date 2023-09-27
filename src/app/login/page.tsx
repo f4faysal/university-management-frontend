@@ -1,6 +1,7 @@
 "use client";
 import { Button, Col, Row } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 
 import Form from "@/components/forms/form";
@@ -17,10 +18,15 @@ type FormValues = {
 const LoginPage = () => {
   const [userLogin] = useUserLoginMutation();
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
       // const { accessToken } = res.data;
+      if (res?.data?.accessToken) {
+        router.push("/profile");
+      }
       storeUserInfo({ accessToken: res?.data?.accessToken });
     } catch (error) {
       console.error(error);

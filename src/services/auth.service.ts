@@ -24,3 +24,7 @@ export const isLoggedIn = () => {
     return false;
   }
 };
+
+export const removeUserInfo = (key: string) => {
+  return localStorage.removeItem(key);
+};
