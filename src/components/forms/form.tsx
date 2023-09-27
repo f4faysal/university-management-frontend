@@ -1,19 +1,19 @@
 "use client";
 
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-type FormContextProps = {
+type FormConfig = {
   defaultValues?: Record<string, any>;
 };
 
 type FormProps = {
-  children?: ReactElement | ReactElement;
+  children?: ReactElement | ReactNode;
   submitHandler: SubmitHandler<any>;
-} & FormContextProps;
+} & FormConfig;
 
 const Form = ({ children, submitHandler, defaultValues }: FormProps) => {
-  const formConfig: FormContextProps = {};
+  const formConfig: FormConfig = {};
 
   if (!!defaultValues) formConfig["defaultValues"] = defaultValues;
 
@@ -23,9 +23,7 @@ const Form = ({ children, submitHandler, defaultValues }: FormProps) => {
 
   const onSubmit = (data: any) => {
     submitHandler(data);
-    {
-      reset;
-    }
+    reset();
   };
 
   return (

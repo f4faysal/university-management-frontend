@@ -5,6 +5,8 @@ import { SubmitHandler } from "react-hook-form";
 
 import Form from "@/components/forms/form";
 import FormInput from "@/components/forms/formInput";
+import { useUserLoginMutation } from "@/redux/api/authApi";
+import { storeUserInfo } from "@/services/auth.service";
 import loginImage from "../../assets/Fingerprint-cuate.png";
 
 type FormValues = {
@@ -13,11 +15,15 @@ type FormValues = {
 };
 
 const LoginPage = () => {
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const [userLogin] = useUserLoginMutation();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
-      console.log(data);
+      const res = await userLogin({ ...data }).unwrap();
+      // const { accessToken } = res.data;
+      storeUserInfo({ accessToken: res?.data?.accessToken });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
