@@ -1,11 +1,17 @@
-import Link from "next/link";
+import { Row } from "antd";
 
-export default function NotFound() {
+const NotFoundPage = () => {
   return (
-    <div>
-      <h1>Not Found</h1>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
-    </div>
+    <Row
+      justify="center"
+      align="middle"
+      style={{
+        height: "100vh",
+      }}
+    >
+      <h1>404!!! Page Not Found!</h1>
+    </Row>
   );
-}
+};
+
+export default NotFoundPage;
