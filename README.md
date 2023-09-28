@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Univarsity Management System
 
-## Getting Started
+### This is a simple university management system. It is a console application.
 
-First, run the development server:
+### It is written in C++.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### It is a project of my university course.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### It is a group project. I have done it with my two friends.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### It is a simple project. It has some bugs. I will fix it later.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### It is a simple project. It has some bugs. I will fix it later.
 
-## Learn More
+## How to run this project
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Download this project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Open this project in any IDE
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 3. Run this project
 
-## Deploy on Vercel
+### 4. Enjoy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How to use this project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 1. First you have to login as admin
+
+### 2. Then you can add student, teacher, stuff, course, result, payment, library, bus, hostel, canteen, etc.
+
+### 3. You can also delete student, teacher, stuff, course, result, payment, library, bus, hostel, canteen, etc.
+
+### 4. You can also update student, teacher, stuff, course, result, payment, library, bus, hostel, canteen, etc.
+
+### 5. You can also search student, teacher, stuff, course, result, payment, library, bus, hostel, canteen, etc.
+
+### 6. You can also see all student, teacher, stuff, course, result, payment, library, bus, hostel, canteen, etc.
+
+## How to login as admin
+
+### 1. Username: admin
+
+### 2. Password: admin
+
+## How to login as student
+
+### 1. Username: 2018-1-60-001
+
+### 2. Password: 123456
+
+## How to login as teacher
+
+### 1. Username: 2018-1-60-001
+
+### 2. Password: 123456
+
+## How to login as stuff
+
+### 1. Username: 2018-1-60-001
+
+### 2. Password: 123456
+
+## How to login as librarian
+
+### 1. Username: 2018-1-60-001
+
+### 2. Password: 123456
