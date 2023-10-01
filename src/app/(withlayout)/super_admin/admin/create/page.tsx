@@ -2,27 +2,25 @@
 
 import UMBreadcrumb from "@/components/ui/umBreadcrumb";
 import { getUserInfo } from "@/services/auth.service";
-import { Button } from "antd";
-import Link from "next/link";
 
-const ManageStudent = () => {
+const CreateAdminPage = () => {
   const { role } = getUserInfo() as any;
-
   return (
     <div>
       <UMBreadcrumb
         items={[
           { lable: `${role}`, path: `/${role}` },
-          { lable: "Manage Student" },
+          {
+            lable: "Admin",
+            path: `/${role}/admin`,
+          },
+          { lable: "Create Admin" },
         ]}
       />
 
-      <h1>Manage Student</h1>
-      <Link href="/super_admin/manage-student/create">
-        <Button>Create Student</Button>
-      </Link>
+      <h1>Create Admin</h1>
     </div>
   );
 };
 
-export default ManageStudent;
+export default CreateAdminPage;

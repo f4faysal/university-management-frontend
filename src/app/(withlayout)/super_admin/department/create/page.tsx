@@ -2,10 +2,8 @@
 
 import UMBreadcrumb from "@/components/ui/umBreadcrumb";
 import { getUserInfo } from "@/services/auth.service";
-import { Button } from "antd";
-import Link from "next/link";
 
-const ManageStudent = () => {
+const CreateDepartmentPage = () => {
   const { role } = getUserInfo() as any;
 
   return (
@@ -13,16 +11,17 @@ const ManageStudent = () => {
       <UMBreadcrumb
         items={[
           { lable: `${role}`, path: `/${role}` },
-          { lable: "Manage Student" },
+          {
+            lable: "Manage Department",
+            path: `/${role}/department`,
+          },
+          { lable: "Create Department" },
         ]}
       />
 
-      <h1>Manage Student</h1>
-      <Link href="/super_admin/manage-student/create">
-        <Button>Create Student</Button>
-      </Link>
+      <h1>Create Department list</h1>
     </div>
   );
 };
 
-export default ManageStudent;
+export default CreateDepartmentPage;

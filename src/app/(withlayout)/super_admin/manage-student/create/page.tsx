@@ -1,11 +1,8 @@
 "use client";
-
 import UMBreadcrumb from "@/components/ui/umBreadcrumb";
 import { getUserInfo } from "@/services/auth.service";
-import { Button } from "antd";
-import Link from "next/link";
 
-const ManageFaculty = () => {
+const CreateStudentPage = () => {
   const { role } = getUserInfo() as any;
 
   return (
@@ -17,17 +14,16 @@ const ManageFaculty = () => {
             path: `/${role}`,
           },
           {
-            lable: "Manage Faculty",
+            lable: "Manage Student",
+            path: `/${role}/manage-student`,
           },
+          { lable: "Create Student" },
         ]}
       />
-      <h1>Manage Faculty</h1>
 
-      <Link href="/super_admin/manage-faculty/create">
-        <Button>Create Faculty</Button>
-      </Link>
+      <h1>Create Student</h1>
     </div>
   );
 };
 
-export default ManageFaculty;
+export default CreateStudentPage;
