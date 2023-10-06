@@ -21,35 +21,35 @@ export const managementDepartmentOptions = [
 export const bloodGropuOptions = [
   {
     label: "A+",
-    value: "a+",
+    value: "A+",
   },
   {
     label: "A-",
-    value: "a-",
+    value: "A-",
   },
   {
     label: "B+",
-    value: "b+",
+    value: "B+",
   },
   {
     label: "B-",
-    value: "b-",
-  },
-  {
-    label: "O+",
-    value: "o+",
-  },
-  {
-    label: "O-",
-    value: "o-",
+    value: "B-",
   },
   {
     label: "AB+",
-    value: "ab+",
+    value: "AB+",
   },
   {
     label: "AB-",
-    value: "ab-",
+    value: "AB-",
+  },
+  {
+    label: "O+",
+    value: "O+",
+  },
+  {
+    label: "O-",
+    value: "O-",
   },
 ];
 

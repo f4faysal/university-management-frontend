@@ -27,7 +27,7 @@ const FromDatePicker = ({ onChange, name, label, size }: UMDatePikerProps) => {
           <DatePicker
             style={{ width: "100%" }}
             size={size}
-            value={dayjs(field.value)}
+            defaultValue={dayjs(field.value) || ""}
             onChange={handelOnChange}
           />
         )}
