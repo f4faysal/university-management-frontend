@@ -1,68 +1,128 @@
 "use client";
 
 import UMTable from "@/components/ui/UMTable";
+import AcationBar from "@/components/ui/acationBar";
 import UMBreadcrumb from "@/components/ui/umBreadcrumb";
+import {
+  useDeleteDepartmentMutation,
+  useDepartmentsQuery,
+} from "@/redux/api/departmentsApi";
+import { useDebounced } from "@/redux/hooks";
 import { getUserInfo } from "@/services/auth.service";
-import { Button } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ReloadOutlined,
+} from "@ant-design/icons";
+import dayjs from "dayjs";
+
+import { Button, Input, message } from "antd";
 import Link from "next/link";
+import { useState } from "react";
 
 const Department = () => {
   const { role } = getUserInfo() as any;
+  const [deleteDepartment] = useDeleteDepartmentMutation();
+
+  const query: Record<string, any> = {};
+
+  const [sige, setSige] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
+  const [sortBy, setSortBy] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  query["page"] = page;
+  query["limit"] = sige;
+  query["sortBy"] = sortBy;
+  query["sortOrder"] = sortOrder;
+  // query["searchTerm"] = searchTerm;
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+
+  if (!!debouncedTerm) {
+    query["searchTerm"] = debouncedTerm;
+    console.log(debouncedTerm);
+  }
+
+  const { data, isLoading } = useDepartmentsQuery({ ...query });
+
+  const departments = data?.departments;
+  const meta = data?.meta;
+
+  const deleteHandler = async (id: { id: string }) => {
+    message.loading("Deleting department...");
+    try {
+      await deleteDepartment(id).unwrap();
+      message.success("Department deleted successfully");
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  };
+
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Title",
+      dataIndex: "title",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      //   sorter: true,
-      sorter: (a: any, b: any) => a.age - b.age,
+      title: "Created At",
+      dataIndex: "createdAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
     },
     {
       title: "Action",
       render: function (data: any) {
         return (
-          <div>
-            <Button type="primary">Edit</Button>
-            <Button onClick={() => console.log(data)} danger>
-              Delete
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              width: "150px",
+            }}
+          >
+            <Link href={`/super_admin/department/edit/${data._id}`}>
+              <Button onClick={() => console.log(data)} type="primary">
+                <EditOutlined />
+              </Button>
+            </Link>
+            <Button onClick={() => deleteHandler(data?.id)} danger>
+              <DeleteOutlined />
             </Button>
+            {/* <Button onClick={() => console.log(data)}>
+              <EyeOutlined />
+            </Button> */}
           </div>
         );
       },
     },
   ];
 
-  const tableData = [
-    {
-      key: 1,
-      name: "faysal",
-      age: 25,
-    },
-    {
-      key: 2,
-      name: "sumon",
-      age: 15,
-    },
-    {
-      key: 3,
-      name: "soniya",
-      age: 5,
-    },
-  ];
-
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log(page, "page");
-    console.log(pageSize, "pageSize");
+    setPage(page);
+    setSige(pageSize);
   };
   const onTableChange = (pagination: any, filters: any, sorter: any) => {
     // console.log(pagination, "pagination");
     // console.log(filters, "filters");
+    // console.log(field, "field" + " " + order, "order");
+
     const { field, order } = sorter;
-    console.log(field, "field" + " " + order, "order");
+    setSortBy(field);
+    setSortOrder(order === "ascend" ? "asc" : "desc");
+  };
+
+  const resetFilter = () => {
+    setSortBy("");
+    setSortOrder("");
+    setSearchTerm("");
   };
 
   return (
@@ -76,18 +136,42 @@ const Department = () => {
         ]}
       />
 
-      <h1>Department List</h1>
-
-      <Link href="/super_admin/department/create">
-        <Button>Create</Button>
-      </Link>
+      <AcationBar title="Department List">
+        <Input
+          type="text"
+          size="large"
+          placeholder="Search ..."
+          style={{
+            width: "300px",
+            marginRight: "20px",
+          }}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <div>
+          <Link href="/super_admin/department/create">
+            <Button type="primary">Create</Button>
+          </Link>
+          {(!!sortBy || !!sortOrder || searchTerm) && (
+            <Button
+              onClick={resetFilter}
+              style={{
+                margin: "0 5px",
+              }}
+            >
+              <ReloadOutlined />
+            </Button>
+          )}
+        </div>
+      </AcationBar>
 
       <UMTable
-        loading={false}
+        loading={isLoading}
         columns={columns}
-        dataSource={tableData}
-        pageSize={5}
-        totalPages={10}
+        dataSource={departments}
+        pageSize={sige}
+        totalPages={meta?.total}
         showSizeChanger={true}
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
