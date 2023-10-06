@@ -1,5 +1,5 @@
 "use client";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
@@ -23,10 +23,11 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
-      console.log(res);
+      // console.log(res);
       // const { accessToken } = res.data;
       if (res?.accessToken) {
         router.push("/profile");
+        message.success("User Login Success");
       }
       storeUserInfo({ accessToken: res?.accessToken });
     } catch (error) {
